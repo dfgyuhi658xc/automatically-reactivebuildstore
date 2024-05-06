@@ -1,11 +1,17 @@
-function generate(numRows) {
-  const triangle = [];
-  for (let i = 0; i < numRows; i++) {
-    const row = new Array(i + 1).fill(1);
-    for (let j = 1; j < row.length - 1; j++) {
-      row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
+function combinationSum3(k, n) {
+  const result = [];
+  backtrack([], 1, k, n);
+  return result;
+  function backtrack(combination, start, k, n) {
+    if (n === 0 && k === 0) {
+      result.push([...combination]);
+      return;
     }
-    triangle.push(row);
+    if (n < 0 || k === 0) return;
+    for (let i = start; i <= 9; i++) {
+      combination.push(i);
+      backtrack(combination, i + 1, k - 1, n - i);
+      combination.pop();
+    }
   }
-  return triangle;
 }
