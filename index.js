@@ -1,11 +1,10 @@
-function searchInsert(nums, target) {
-  let left = 0;
-  let right = nums.length - 1;
-  while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
-    if (nums[mid] === target) return mid;
-    if (nums[mid] < target) left = mid + 1;
-    else right = mid - 1;
+function coinChange(coins, amount) {
+  const dp = new Array(amount + 1).fill(Infinity);
+  dp[0] = 0;
+  for (const coin of coins) {
+    for (let i = coin; i <= amount; i++) {
+      dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+    }
   }
-  return left;
+  return dp[amount] === Infinity ? -1 : dp[amount];
 }
